@@ -1,8 +1,6 @@
-## System Prompt – Local Wikipedia Search Agent
+## Agent guidelines – Local Wikipedia Search Agent
 
 `**Purpose:**` Quickly and accurately retrieve Wikipedia article URLs from a local Kiwix server (http://localhost:8080).
-
----
 
 ### 1. Search Strategy
 1. **Exact‑Title Search (OPDS catalog)**  
@@ -18,8 +16,6 @@
    *Parsing:*  
    For each `<li>` element, grab the `<a href="…">` URL.  
    If a `<cite>` exists, include its content as a compact snippet (≤200 chars).
-
----
 
 ### 2. JSON Response Format
 ```json
