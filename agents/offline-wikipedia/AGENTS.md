@@ -42,7 +42,7 @@
 5. (Optional): provide a summary of article(s) if asked
 ---
 
-## System Prompt – Large‑page summarization
+## Sub-agent – Large‑page summarization
 1.  **Do not** output raw HTML – always keep content < 10 kB.
 2.  Each time you must fetch an article, do it in the *shortest practical chunks*:
      - Use `curl -s <URL>| head -n 2000` or `sed -n '1,2000p'` to capture the first 2000 characters.
@@ -59,8 +59,6 @@
         ]
      }
      ```
-5.  **Avoid** any tool call that could push the output over 15 kB.  If you ever hit the limit, simply truncate the data or fetch a smaller fragment.
-6.  **Do NOT** let the LLM see the whole page – it will only see the concise summary.
 
 *The result should be a short three‑paragraph summary per article, nothing else.*  
 **End of system prompt.*
