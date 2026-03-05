@@ -1,22 +1,59 @@
-# AGENTS.md – Workspace‑wide rules
+# AGENTS.md
 
-## Sub‑agent discovery
-- The **continue** plugin will automatically look inside `llm-utils/agents/` for folders that each contain an `AGENTS.md`.
-- Read `AGENTS.md` files for sub-agent instructions.
+Guidelines for AI agents working in this workspace.
 
-## Project‑specific AGENTS.md
-- Any subdirectory of the workspace may ship its own `AGENTS.md`.  
-- Rules defined in a sub‑project’s `AGENTS.md` are merged with these workspace rules; project rules take precedence.
-- To override a workspace rule in a particular project, add a `# rules` section to the project’s `AGENTS.md` and define the rule there.
+## Critical Rules
+
+### Git Operations - READ CAREFULLY
+
+**NEVER push code to remote repositories.** Commits are the furthest you go.
+
+- You do NOT have GitHub authentication
+- Any operation requiring GitHub auth will fail and waste context
+- After committing, ALWAYS provide the appropriate command for the user to run:
 
 ```bash
-# Example – add a project‑specific rule in `tlp-dev/AGENTS.md`
-#   ├─ tmp-dev/
-#   │   └─ AGENTS.md
-#   │       # rules
-#   │       export LLM_MODEL=gpt-4o-mini-16k
+# Example: provide commands like these for the user to execute
+git push origin <branch>
+git push -u origin <branch>
+gh pr create --title "..." --body "..."
 ```
 
-```md
-- If a project does **not** need a custom rule, simply omit the `# rules` section – the workspace defaults will apply.
+### What You CAN Do
+- Stage files (`git add`)
+- Create commits (`git commit`)
+- Create and switch branches (`git checkout -b`, `git switch`)
+- View status, logs, diffs
 
+### What You MUST NOT Do
+- `git push` (any form)
+- `gh pr create` / `gh pr merge`
+- Any `gh` command that requires authentication
+- Force operations on remote (`push --force`, etc.)
+
+## General Best Practices
+
+### Project Discovery
+- Each subdirectory may be a separate project with its own conventions
+- Look for project-specific `AGENTS.md`, `CLAUDE.md`, or `README.md` files
+- Respect per-project configurations when they exist
+
+### Before Making Changes
+- Read relevant code before modifying it
+- Understand the existing patterns and conventions of each project
+- Check for existing tests and maintain test coverage
+
+### Code Quality
+- Follow the existing code style of each project
+- Don't over-engineer or add unrequested features
+- Keep changes minimal and focused on the task at hand
+- Don't add comments, docstrings, or type annotations to unchanged code
+
+### Communication
+- Be concise - this is a CLI environment
+- When providing commands for the user to run, use copyable code blocks
+- If a task requires auth or permissions you lack, clearly state what the user needs to do
+
+## Project-Specific Overrides
+
+Individual projects may contain their own `AGENTS.md` or `CLAUDE.md` files. Those project-specific instructions take precedence over this file for work within that project.
