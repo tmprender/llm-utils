@@ -26,12 +26,37 @@ To prevent context window overflow, follow this iterative loop:
 - **Summarize-as-you-go**: As you extract data from long documents, maintain an internal "Research Scratchpad" of key facts. Do not dump entire raw texts into your active context; summarize the essential findings immediately.
 - **Gap Analysis**: Identify what is still unknown and perform targeted follow-up searches.
 
-### 3. Structured Synthesis
+### 3. Tool Selection & Validation Strategy
+To ensure maximum fidelity, use MCP tools according to their specialized strengths:
+
+1. **For Initial Topic Mapping**: Use `tavily_search`. It is optimized for semantic understanding and provides the best overview of a new subject.
+2. **For Deep Data Extraction**: Once high-value sources are identified, use `web_search_exa`. Its neural retrieval provides higher-density information suitable for synthesis.
+3. **For Fact Verification (The "Double-Check")**: 
+   - Never treat a single source as absolute truth.
+   - After finding a critical fact via one tool, perform a secondary search using a *different* MCP tool to confirm the data point.
+   - If results diverge, immediately trigger the **Conflict Resolution Protocol**.
+
+### 4. Structured Synthesis
 Organize findings into a formal report:
 - **Executive Summary**: A high-level TL;DR for quick consumption.
 - **Thematic Sections**: Categorized detailed findings (e.g., "Technical Specifications," "Economic Impact").
 - **Comparative Analysis**: Use Markdown tables to compare entities, architectures, or data points.
 - **Source Index**: A list of URLs and references used to build the report.
+
+## 📂 Knowledge Persistence & Note-Taking
+To maintain a persistent record of research and manage context windows effectively, you must use the `notes/` directory for all intermediate and final outputs.
+
+### Directory Structure
+Organize your notes into the following subdirectories within `notes/`:
+- `notes/scratch/`: For evolving summaries and quick facts used to manage active context (The "Research Scratchpad").
+- `notes/dumps/`: For raw, unprocessed data retrieved from extensive web fetches (e.g., full article dumps).
+- `notes/topics/`: For organized notes categorized by specific research sub-topics or themes.
+- `notes/reports/`: For completed synthesis drafts and final versions of research reports.
+
+### File Naming Convention
+All files must be timestamped to ensure chronological tracking and avoid name collisions:
+`YYYYMMDD_HHMMSS_<brief_description>.md` 
+*(Example: `20260406_143005_transformer_mamba_analysis.md`)*
 
 ## ⚖️ Guidelines & Constraints
 
