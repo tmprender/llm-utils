@@ -1,0 +1,64 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "gemma-server": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Gemma 31B (Port 8080)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1",
+        "apiKey": "local-llama"
+      },
+      "models": {
+        "gemma-4-31b": {
+          "name": "Gemma 4 31B"
+        }
+      }
+    },
+    "qwen-server": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Qwen 27B (Port 8081)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8081/v1",
+        "apiKey": "local-llama"
+      },
+      "models": {
+        "qwen-27b": {
+          "name": "Qwen 3.8 27B"
+        }
+      }
+    }
+  },
+  "permission": {
+    "edit": "ask",
+    "bash": "ask",
+    "webfetch": "allow"
+  },
+  "tools": {},
+  "mcp": {
+    "MCP_DOCKER": {
+      "type": "local",
+      "command": [
+        "docker",
+        "mcp",
+        "gateway",
+        "run"
+      ],
+      "enabled": true
+    }
+  },
+  "mode": {
+    "research": {
+      "temperature": 0.2,
+      "prompt": "{file:~/workspace/llm-utils/agents/research/AGENTS.md}",
+      "model": "gemma-server/gemma-4-31b"
+    },
+    "plan": {
+      "temperature": 0.3,
+      "model": "gemma-server/gemma-4-31b"
+    },
+    "build": {
+      "temperature": 0.2,
+      "model": "qwen-server/qwen-27b"
+    }
+  }
+}
